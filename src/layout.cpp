@@ -96,7 +96,7 @@ void layout::handle_keycode(key *kbd_key, const bool &pressed) {
 	if (pressed)
 		window->play_haptic();
 
-	if (kbd_key->label == "Hide") {
+	if (kbd_key->label == "Hide" || kbd_key->label == "Minimize" || kbd_key->label == "Min") {
 		if (pressed) {
 			style->add_class("pressed");
 		}

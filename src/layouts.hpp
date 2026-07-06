@@ -11,7 +11,7 @@ std::vector<std::pair<int, std::vector<std::string>>> keymap_desktop = {
 };
 
 std::vector<std::pair<int, std::vector<std::string>>> keymap_mobile = {
-	{2, {"3 0 Hide Hide", "3 15 Tab Tab", "2 29 Ctrl Ctrl", "2 56 Alt Alt", "2 53 / ?", "2 105 ← ←", "2 103 ↑ ↑", "2 108 ↓ ↓", "2 106 → →"}},
+		{2, {"3 0 Minimize Minimize", "3 15 Tab Tab", "2 29 Ctrl Ctrl", "2 56 Alt Alt", "2 53 / ?", "2 105 ← ←", "2 103 ↑ ↑", "2 108 ↓ ↓", "2 106 → →"}},
 	{3, {"2 16 q Q", "2 17 w W", "2 18 e E", "2 19 r R", "2 20 t T", "2 21 y Y", "2 22 u U", "2 23 i I", "2 24 o O", "2 25 p P"}},
 	{3, {"1 0 Pad Pad", "2 30 a A", "2 31 s S", "2 32 d D", "2 33 f F", "2 34 g G", "2 35 h H", "2 36 j J", "2 37 k K ", "2 38 l L", "1 0 Pad Pad"}},
 	{3, {"3 42 Shift Shift", "2 44 z Z", "2 45 x X", "2 46 c C", "2 47 v V", "2 48 b B", "2 49 n N", "2 50 m M", "3 14 Backspace Backspace"}},
@@ -19,7 +19,7 @@ std::vector<std::pair<int, std::vector<std::string>>> keymap_mobile = {
 };
 
 std::vector<std::pair<int, std::vector<std::string>>> keymap_mobile_numbers = {
-	{2, {"3 0 Hide Hide", "3 15 Tab Tab", "2 29 Ctrl Ctrl", "2 56 Alt Alt", "2 53 / ?", "2 105 ← ←", "2 103 ↑ ↑", "2 108 ↓ ↓", "2 106 → →"}},
+		{2, {"3 0 Minimize Minimize", "3 15 Tab Tab", "2 29 Ctrl Ctrl", "2 56 Alt Alt", "2 53 / ?", "2 105 ← ←", "2 103 ↑ ↑", "2 108 ↓ ↓", "2 106 → →"}},
 	{3, {"2 2 1 !", "2 3 2 @", "2 4 3 #", "2 5 4 $", "2 6 5 %", "2 7 6 ^", "2 8 7 &", " 2 9 8 *", "2 10 9 (", "2 11 0 )"}},
 	{3, {"2 0 Pad Pad", "2 12 - _", "2 13 = +", "2 26 [ {", "2 27 ] }", "2 43 \\ |", "2 39 ; :", "2 40 ' \"", "2 41 ` ~", "2 0 Pad Pad"}},
 	{3, {"3 42 Shift Shift", "4 0 Pad Pad", "2 51 , <", "2 52 . >", "2 53 / ?", "4 0 Pad Pad", "3 14 Backspace Backspace"}},

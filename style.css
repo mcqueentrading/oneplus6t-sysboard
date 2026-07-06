@@ -19,6 +19,7 @@
 
 #sysboard .key-Shift label,
 #sysboard .key-Backspace label,
+#sysboard .key-Minimize label,
 #sysboard .key-Hide label,
 #sysboard .key-Space label,
 #sysboard .key-Enter label {
@@ -37,6 +38,10 @@
 }
 
 #sysboard .key-Hide label {
+    background-image: -gtk-icontheme("go-down-symbolic");
+}
+
+#sysboard .key-Minimize label {
     background-image: -gtk-icontheme("go-down-symbolic");
 }
 
