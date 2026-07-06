@@ -19,6 +19,7 @@
 
 #sysboard .key-Shift label,
 #sysboard .key-Backspace label,
+#sysboard .key-Hide label,
 #sysboard .key-Space label,
 #sysboard .key-Enter label {
     background-position: center;
@@ -33,6 +34,10 @@
 
 #sysboard .key-Backspace label {
     background-image: -gtk-icontheme("edit-clear-symbolic");
+}
+
+#sysboard .key-Hide label {
+    background-image: -gtk-icontheme("go-down-symbolic");
 }
 
 #sysboard .key-Space label {

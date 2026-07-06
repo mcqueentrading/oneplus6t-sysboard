@@ -19,6 +19,7 @@ class sysboard : public Gtk::Window {
 		void create_input_manager();
 		void press_key(const int&, const int&);
 		void set_modifier(const int&);
+		void play_haptic();
 		void load_layout();
 		void handle_signal(const int&, const bool& manual = false);
 
@@ -31,12 +32,16 @@ class sysboard : public Gtk::Window {
 		zwp_virtual_keyboard_v1* virtual_keyboard;
 		zwp_input_method_v2* input_method;
 		layout *layout_board;
+		int haptics_fd = -1;
+		int haptics_effect_id = -1;
+		bool haptics_initialized = false;
+		long last_haptic_time = 0;
 
 		void initialize_protos();
+		bool initialize_haptics();
 };
 
 extern "C" {
 	sysboard *sysboard_create(const std::map<std::string, std::map<std::string, std::string>>&);
 	void sysboard_signal(sysboard*, int);
 }
-

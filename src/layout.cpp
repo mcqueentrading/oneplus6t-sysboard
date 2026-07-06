@@ -5,6 +5,7 @@
 
 #include <algorithm>
 #include <bitset>
+#include <signal.h>
 #include <sys/time.h>
 
 layout::layout(sysboard *win, const std::string &keymap_name) : Gtk::Grid() {
@@ -91,6 +92,21 @@ void layout::handle_keycode(key *kbd_key, const bool &pressed) {
 
 	auto style = kbd_key->get_style_context();
 	bool is_shift = kbd_key->code == 42 || kbd_key->code == 54;
+
+	if (pressed)
+		window->play_haptic();
+
+	if (kbd_key->label == "Hide") {
+		if (pressed) {
+			style->add_class("pressed");
+		}
+		else {
+			style->remove_class("pressed");
+			handle_keycode(nullptr, false);
+			window->handle_signal(SIGUSR2, true);
+		}
+		return;
+	}
 
 	if (is_shift) {
 		if (pressed) {

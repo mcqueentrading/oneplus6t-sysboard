@@ -29,7 +29,9 @@ The current fork defaults are aimed at the OnePlus 6T display and touch layout:
 - zero outer margin
 - semi-transparent dark keyboard background
 - grey keycaps with white labels
-- compact icon-style special keys for shift, backspace, space, and enter
+- compact icon-style special keys for shift, backspace, hide, space, and enter
+- the mobile-layout top-left key hides/minimizes the keyboard
+- short keypress haptics enabled by default on OnePlus 6T force-feedback input
 
 The default config lives in:
 
@@ -115,6 +117,24 @@ Example phone-sized launch:
 ```sh
 sysboard -m 0 -H 360 -l mobile
 ```
+
+## OnePlus 6T Haptics
+
+This fork can play a short force-feedback pulse on key press. It is controlled
+from `config.conf`:
+
+```ini
+[main]
+haptics=true
+haptics-duration-ms=18
+haptics-strength=0x2200
+```
+
+Set `haptics=false` in `~/.config/sys64/board/config.conf` to disable typing
+haptics without rebuilding Sysboard.
+
+If the haptics input device is not readable from the Sysboard process, the
+keyboard still works and silently skips haptics.
 
 ## Signals
 
