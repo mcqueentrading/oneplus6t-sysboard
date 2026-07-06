@@ -3,6 +3,7 @@
 #include "css.hpp"
 
 #include <gtk4-layer-shell.h>
+#include <gdk/gdk.h>
 #include <algorithm>
 #include <cerrno>
 #include <cctype>
@@ -33,6 +34,26 @@ std::string read_file(const std::filesystem::path& path) {
 	std::string value;
 	std::getline(file, value);
 	return value;
+}
+
+bool display_is_landscape() {
+	GdkDisplay* display = gdk_display_get_default();
+	if (!display)
+		return false;
+
+	GListModel* monitors = gdk_display_get_monitors(display);
+	if (!monitors)
+		return false;
+
+	GdkMonitor* monitor = reinterpret_cast<GdkMonitor*>(g_list_model_get_item(monitors, 0));
+	g_object_unref(monitors);
+	if (!monitor)
+		return false;
+
+	GdkRectangle geometry {};
+	gdk_monitor_get_geometry(monitor, &geometry);
+	g_object_unref(monitor);
+	return geometry.width >= geometry.height;
 }
 
 bool haptics_candidate(const std::filesystem::path& event_path) {
@@ -84,7 +105,16 @@ sysboard::sysboard(const std::map<std::string, std::map<std::string, std::string
 
 	// Initialization
 	set_name("sysboard");
-	set_default_size(-1, stoi(config_main["main"]["height"]));
+	const int base_height = parse_int_config(config_main["main"]["height"], 432, 180, 8192);
+	const int portrait_height = config_main["main"].count("height_portrait") != 0
+		? parse_int_config(config_main["main"]["height_portrait"], base_height * 2, 180, 8192)
+		: base_height * 2;
+	const int landscape_height = config_main["main"].count("height_landscape") != 0
+		? parse_int_config(config_main["main"]["height_landscape"], base_height * 12 / 5, 180, 8192)
+		: base_height * 12 / 5;
+
+	const int requested_height = display_is_landscape() ? landscape_height : portrait_height;
+	set_default_size(-1, requested_height);
 	initialize_protos();
 	load_layout();
 
