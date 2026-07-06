@@ -25,10 +25,12 @@ and be toggled by the phone UI helpers.
 The current fork defaults are aimed at the OnePlus 6T display and touch layout:
 
 - mobile layout enabled by default
-- `360` pixel keyboard height
+- `432` pixel keyboard height, 20% taller than the earlier phone default
 - zero outer margin
 - semi-transparent dark keyboard background
 - grey keycaps with white labels
+- horizontally scrollable Linux key ribbon above QWERTY with Esc, F1-F12,
+  Super, Ctrl, Alt, Tab, navigation, insert/delete, print, and menu keys
 - compact icon-style special keys for shift, backspace, hide, space, and enter
 - the mobile-layout top-left key hides/minimizes the keyboard (labelled `Minimize` in the fork)
 - short keypress haptics enabled by default on OnePlus 6T force-feedback input
@@ -115,7 +117,7 @@ Useful arguments:
 Example phone-sized launch:
 
 ```sh
-sysboard -m 0 -H 360 -l mobile
+sysboard -m 0 -H 432 -l mobile
 ```
 
 ## OnePlus 6T Haptics

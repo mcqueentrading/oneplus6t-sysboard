@@ -5,8 +5,41 @@
 
 #include <algorithm>
 #include <bitset>
+#include <gtkmm/box.h>
+#include <gtkmm/scrolledwindow.h>
 #include <signal.h>
 #include <sys/time.h>
+
+namespace {
+constexpr unsigned int mobile_columns = 20;
+const std::vector<std::string> linux_key_ribbon = {
+	"2 1 Esc Esc",
+	"2 59 F1 F1",
+	"2 60 F2 F2",
+	"2 61 F3 F3",
+	"2 62 F4 F4",
+	"2 63 F5 F5",
+	"2 64 F6 F6",
+	"2 65 F7 F7",
+	"2 66 F8 F8",
+	"2 67 F9 F9",
+	"2 68 F10 F10",
+	"2 87 F11 F11",
+	"2 88 F12 F12",
+	"3 125 Super Super",
+	"2 29 Ctrl Ctrl",
+	"2 56 Alt Alt",
+	"2 15 Tab Tab",
+	"2 102 Home Home",
+	"2 107 End End",
+	"2 104 PgUp PgUp",
+	"2 109 PgDn PgDn",
+	"2 110 Ins Ins",
+	"2 111 Del Del",
+	"2 99 Prt Prt",
+	"2 139 Menu Menu"
+};
+}
 
 layout::layout(sysboard *win, const std::string &keymap_name) : Gtk::Grid() {
 	window = win;
@@ -26,7 +59,8 @@ layout::layout(sysboard *win, const std::string &keymap_name) : Gtk::Grid() {
 	mod_map[54] = 1;	// Right Shift
 	mod_map[29] = 4;	// Ctrl
 	mod_map[56] = 8;	// Alt
-	mod_map[125] = 4;	// Meta
+	mod_map[125] = 64;	// Left Meta / Super
+	mod_map[126] = 64;	// Right Meta / Super
 
 	load();
 }
@@ -39,6 +73,7 @@ void layout::load() {
 
 	// Rows
 	unsigned int row_counter = 0;
+	add_linux_key_ribbon(row_counter);
 	for (ulong i = 0; i < keymap.size(); ++i) {
 		int height = keymap[i].first;
 
@@ -57,24 +92,64 @@ void layout::load() {
 				attach(*kbd_key, col_counter, row_counter, width, height);
 			}
 			else {
-				key* kbd_key = Gtk::make_managed<key>(code, label, label_shift);
-
-				Glib::RefPtr<Gtk::GestureClick> gesture_click = Gtk::GestureClick::create();
-				kbd_key->add_controller(gesture_click);
-
-				// Handle events
-				gesture_click->signal_pressed().connect([&, kbd_key](int, double, double) {
-					handle_keycode(kbd_key, true);
-				});
-				gesture_click->signal_released().connect([&, kbd_key](int, double, double) {
-					handle_keycode(kbd_key, false);
-				});
+				key* kbd_key = create_key(code, label, label_shift);
 				attach(*kbd_key, col_counter, row_counter, width, height);
 			}
 			col_counter += width;
 		}
 		row_counter += height;
 	}
+}
+
+key* layout::create_key(const int &code, const std::string &label, const std::string &label_shift) {
+	key* kbd_key = Gtk::make_managed<key>(code, label, label_shift);
+
+	Glib::RefPtr<Gtk::GestureClick> gesture_click = Gtk::GestureClick::create();
+	kbd_key->add_controller(gesture_click);
+
+	gesture_click->signal_pressed().connect([this, kbd_key](int, double, double) {
+		handle_keycode(kbd_key, true);
+	});
+	gesture_click->signal_released().connect([this, kbd_key](int, double, double) {
+		handle_keycode(kbd_key, false);
+	});
+
+	return kbd_key;
+}
+
+void layout::add_linux_key_ribbon(unsigned int &row_counter) {
+	if (keymap_name != "mobile" && keymap_name != "mobile_numbers")
+		return;
+
+	auto scroller = Gtk::make_managed<Gtk::ScrolledWindow>();
+	auto ribbon = Gtk::make_managed<Gtk::Box>(Gtk::Orientation::HORIZONTAL, 0);
+
+	scroller->add_css_class("linux-ribbon-scroll");
+	scroller->set_policy(Gtk::PolicyType::AUTOMATIC, Gtk::PolicyType::NEVER);
+	scroller->set_hexpand(true);
+	scroller->set_vexpand(true);
+
+	ribbon->add_css_class("linux-ribbon");
+	ribbon->set_hexpand(true);
+	ribbon->set_vexpand(true);
+
+	for (const auto &spec : linux_key_ribbon) {
+		std::istringstream iss(spec);
+		unsigned int width;
+		int code;
+		std::string label;
+		std::string label_shift;
+		iss >> width >> code >> label >> label_shift;
+
+		key* kbd_key = create_key(code, label, label_shift);
+		kbd_key->add_css_class("linux-ribbon-key");
+		kbd_key->set_size_request(static_cast<int>(width * 28), -1);
+		ribbon->append(*kbd_key);
+	}
+
+	scroller->set_child(*ribbon);
+	attach(*scroller, 0, row_counter, mobile_columns, 2);
+	row_counter += 2;
 }
 
 void layout::handle_keycode(key *kbd_key, const bool &pressed) {

@@ -24,5 +24,7 @@ class layout : public Gtk::Grid {
 		bool shift_temp;
 
 		void load();
+		key* create_key(const int&, const std::string&, const std::string&);
+		void add_linux_key_ribbon(unsigned int&);
 		long get_time_in_us();
 };

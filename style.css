@@ -17,6 +17,20 @@
     font-size: 14px;
 }
 
+#sysboard .linux-ribbon-scroll {
+    min-height: 0;
+}
+
+#sysboard .linux-ribbon {
+    padding: 2px 3px;
+}
+
+#sysboard .linux-ribbon-key label {
+    font-size: 11px;
+    margin: 2px 1px;
+    padding: 0 5px;
+}
+
 #sysboard .key-Shift label,
 #sysboard .key-Backspace label,
 #sysboard .key-Minimize label,
