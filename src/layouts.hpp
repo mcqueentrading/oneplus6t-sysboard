@@ -19,7 +19,7 @@ std::vector<std::pair<int, std::vector<std::string>>> keymap_mobile = {
 };
 
 std::vector<std::pair<int, std::vector<std::string>>> keymap_mobile_numbers = {
-		{2, {"3 0 abc abc", "3 15 Tab Tab", "2 29 Ctrl Ctrl", "2 56 Alt Alt", "2 53 / ?", "2 105 ← ←", "2 103 ↑ ↑", "2 108 ↓ ↓", "2 106 → →"}},
+		{2, {"3 0 Hide Hide", "3 15 Tab Tab", "2 29 Ctrl Ctrl", "2 56 Alt Alt", "2 53 / ?", "2 105 ← ←", "2 103 ↑ ↑", "2 108 ↓ ↓", "2 106 → →"}},
 	{3, {"2 2 1 !", "2 3 2 @", "2 4 3 #", "2 5 4 $", "2 6 5 %", "2 7 6 ^", "2 8 7 &", " 2 9 8 *", "2 10 9 (", "2 11 0 )"}},
 	{3, {"2 12 - _", "2 13 = +", "2 26 [ {", "2 27 ] }", "2 43 \\ |", "2 39 ; :", "2 40 ' \"", "2 41 ` ~", "2 53 / ?", "2 51 , <"}},
 	{3, {"3 42 Shift Shift", "4 0 Pad Pad", "2 51 , <", "2 52 . >", "2 53 / ?", "4 0 Pad Pad", "3 14 Backspace Backspace"}},
