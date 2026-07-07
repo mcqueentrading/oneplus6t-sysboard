@@ -110,8 +110,8 @@ sysboard::sysboard(const std::map<std::string, std::map<std::string, std::string
 		? parse_int_config(config_main["main"]["height_portrait"], base_height * 2, 180, 8192)
 		: base_height * 2;
 	const int landscape_height = config_main["main"].count("height_landscape") != 0
-		? parse_int_config(config_main["main"]["height_landscape"], base_height * 12 / 5, 180, 8192)
-		: base_height * 12 / 5;
+		? parse_int_config(config_main["main"]["height_landscape"], base_height * 6 / 5, 180, 8192)
+		: base_height * 6 / 5;
 
 	const int requested_height = display_is_landscape() ? landscape_height : portrait_height;
 	set_default_size(-1, requested_height);
