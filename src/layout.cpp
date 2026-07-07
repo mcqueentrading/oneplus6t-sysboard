@@ -183,6 +183,26 @@ void layout::handle_keycode(key *kbd_key, const bool &pressed) {
 		return;
 	}
 
+	// Layout-switch controls are Sysboard UI only. Do not send their code 0
+	// through the virtual keyboard protocol.
+	if (kbd_key->code == 0 && (kbd_key->label == "123" || kbd_key->label == "abc")) {
+		if (pressed) {
+			style->add_class("pressed");
+		}
+		else {
+			style->remove_class("pressed");
+			keymap_name = (kbd_key->label == "123") ? "mobile_numbers" : "mobile";
+
+			for (auto& child : get_children())
+				remove(*child);
+
+			mods = 0;
+			window->set_modifier(mods);
+			load();
+		}
+		return;
+	}
+
 	if (is_shift) {
 		if (pressed) {
 			long current_time = get_time_in_us();
@@ -281,20 +301,6 @@ void layout::handle_keycode(key *kbd_key, const bool &pressed) {
 		}
 	}
 
-	// Handle layout switching (e.g. 123/abc key)
-	if (!pressed && kbd_key->code == 0) {
-		if (kbd_key->label == "123")
-			keymap_name = "mobile_numbers";
-		else if (kbd_key->label == "abc")
-			keymap_name = "mobile";
-
-		for (auto& child : get_children())
-			remove(*child);
-
-		mods = 0;
-		window->set_modifier(mods);
-		load();
-	}
 }
 
 long layout::get_time_in_us() {

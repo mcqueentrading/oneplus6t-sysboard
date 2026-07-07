@@ -32,7 +32,9 @@ The current fork defaults are aimed at the OnePlus 6T display and touch layout:
 - horizontally scrollable Linux key ribbon above QWERTY with Esc, F1-F12,
   Super, Ctrl, Alt, Tab, navigation, insert/delete, print, and menu keys
 - compact icon-style special keys for shift, backspace, hide, space, and enter
-- the mobile-layout top-left key hides/minimizes the keyboard (labelled `Minimize` in the fork)
+- the primary mobile-layout top-left key hides/minimizes the keyboard
+- the symbol layout keeps that top-left control as `abc` instead of hide, so
+  the `-` key cannot be mistaken for the minimize key
 - short keypress haptics enabled by default on OnePlus 6T force-feedback input
 
 The default config lives in:
